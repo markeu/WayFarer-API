@@ -4,7 +4,8 @@
   "description": "WayFarer is a public bus transportation booking server.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node app.js"
   },
   "repository": {
     "type": "git",
@@ -18,11 +19,8 @@
   "homepage": "https://github.com/markeu/WayFarer-API#readme",
   "dependencies": {
     "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.5",
     "@babel/node": "^7.4.5",
     "@babel/polyfill": "^7.4.4",
-    "@babel/preset-env": "^7.4.5",
-    "@babel/register": "^7.4.4",
     "babel-eslint": "^10.0.2",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
@@ -30,6 +28,9 @@
     "pg": "^7.11.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
     "eslint": "^5.3.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.18.2",
