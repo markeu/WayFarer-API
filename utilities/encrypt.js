@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-/* eslint-disable no-undef */
 import bycrpt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';

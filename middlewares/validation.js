@@ -21,7 +21,7 @@ export default {
       errors.push(...checkStringFields('last_name', last_name));
     }
     errors.push(...checkPatternedFields('email', email, emailRegex));
-    errors.push(...checkPatternedFields('Password', password, passwordRegex));
+    errors.push(...checkForEmptyFields('password', password, passwordRegex));
 
     if (errors.length) {
       return res.status(400).json({
