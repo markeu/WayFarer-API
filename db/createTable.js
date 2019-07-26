@@ -6,7 +6,6 @@ import pool from './db';
 // dotenv.config();
 
 
-
 const tablesQuerry = `    
     CREATE TABLE IF NOT EXISTS users(
         id SERIAL PRIMARY KEY,
