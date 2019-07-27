@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable no-undef */
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';

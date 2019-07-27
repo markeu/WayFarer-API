@@ -26,23 +26,6 @@ export default class UserModel {
     return rows[0];
   }
 
-  /**
-      *
-      * User model to create user profile
-      * @static
-      * @param {object} userId
-      * @returns {object} User Profile data
-      * @memberof Users
-      */
-  static async createProfile(userId) {
-    const data = await pool.query(`INSERT INTO users_profile(
-              "userId"
-          )
-          VALUES (
-              $1
-          ) RETURNING *`, [userId]);
-    return data.rows[0];
-  }
 
   /**
      *
@@ -52,13 +35,14 @@ export default class UserModel {
      * @returns {object} User data according to supplied email
      * @memberof Users
      */
-  static async findUserInput(email) {
-    const data = await pool.query(`SELECT * FROM users WHERE email = ${email}`);
-    console.log(data, 'user model');
-
-    if (data.rowCount < 1) {
+  static async findUserInput(user) {
+    const { email } = user;
+    const { rows } = await pool.query(`SELECT * FROM users
+        (email) VALUES ($1)
+        RETURNING *`, [email]);
+    if (rows[0].rowCount < 1) {
       return false;
     }
-    return data.rows[0];
+    return rows[0];
   }
 }

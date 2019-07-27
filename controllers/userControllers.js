@@ -65,11 +65,10 @@ export class UsersController {
    * @returns {object} Object containing token to the user
    * @memberof UsersController
    */
-  static async login(req, res, next) {
+  static async login(req, res) {
     try {
       const data = req.body;
       const query = 'SELECT * FROM users WHERE email = $1';
-
       const { rows } = await pool.query(query, [req.body.email]);
       if (!rows[0]) {
         return res.status(404).json({
@@ -89,10 +88,7 @@ export class UsersController {
       const token = await generateToken(userData);
       return res.status(201).json({
         status: 'success',
-        data: {
-          ...rows[0],
-          token,
-        },
+        data: { ...rows[0], token },
       });
     } catch (err) {
       return res.status(500).json({
