@@ -1,6 +1,6 @@
 export default {
   checkForEmptyFields: (field, value) => {
-    if (!value || !value.trim()) return [`${field} is required`];
+    if (!value) return [`${field} is required`];
     return [];
   },
 
@@ -11,7 +11,7 @@ export default {
 
   checkIntergerFields: (field, value) => {
     const valueInt = parseFloat(value);
-    if (!Number(valueInt)) return [`${field} must be a number`];
+    if (!Number(valueInt)) return [`${field} must be number or float`];
     return [];
   },
 

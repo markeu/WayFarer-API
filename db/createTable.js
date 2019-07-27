@@ -31,7 +31,7 @@ const tablesQuerry = `
     
     CREATE TABLE IF NOT EXISTS trips(
         id SERIAL PRIMARY KEY,
-        bus_id INT REFERENCES buses(id) ON DELETE CASCADE,
+        bus_id INT NOT NULL,
         origin TEXT NOT NULL,
         destination TEXT NOT NULL,
         trip_date TEXT NOT NULL,

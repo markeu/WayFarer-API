@@ -31,23 +31,22 @@ export default {
     }
     return next();
   },
-  postValidator: (req, res, next) => {
+  tripValidator: (req, res, next) => {
     const errors = [];
     const {
-      status, price, state, city, address, type,
+      bus_id,
+      origin,
+      destination,
+      trip_date,
+      fare,
     } = req.body;
 
-    errors.push(...checkForEmptyFields('status', status));
-    errors.push(...checkForEmptyFields('city', city));
-    errors.push(...checkForEmptyFields('address', address));
-    errors.push(...checkForEmptyFields('type', type));
-    errors.push(...checkForEmptyFields('state', state));
-    errors.push(...checkForEmptyFields('price', price));
-    errors.push(...checkStringFields('status', status));
-    errors.push(...checkStringFields('city', city));
-    errors.push(...checkStringFields('state', state));
-    errors.push(...checkIntergerFields('price', price));
-
+    errors.push(...checkForEmptyFields('bus_id', bus_id));
+    errors.push(...checkForEmptyFields('origin', origin));
+    errors.push(...checkForEmptyFields('destination', destination));
+    errors.push(...checkForEmptyFields('trip_date', trip_date));
+    errors.push(...checkForEmptyFields('fare', fare));
+    errors.push(...checkIntergerFields('fare', fare));
     if (errors.length) {
       return res.status(400).json({
         Status: 'error',
