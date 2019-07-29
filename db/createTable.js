@@ -1,9 +1,6 @@
 /* eslint-disable no-tabs */
 /* eslint-disable no-console */
-import dotenv from 'dotenv';
 import pool from './db';
-
-// dotenv.config();
 
 
 const tablesQuerry = `    

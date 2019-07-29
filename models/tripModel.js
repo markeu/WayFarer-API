@@ -30,6 +30,7 @@ export default class Trips {
       RETURNING *`, [bus_id, origin, destination, trip_date, fare]);
     return rows[0];
   }
+
   /**
    * @static
    * @description Method to select one specific property advert
@@ -49,9 +50,9 @@ export default class Trips {
    * @returns {array} All properties in the DB
    * @memberof Properties
    */
-  static async getPropQuery() {
+  static async getAllTrips() {
     const data = await pool.query(
-      'SELECT * FROM property',
+      'SELECT * FROM trips',
     );
     return data.rows;
   }
@@ -105,8 +106,8 @@ export default class Trips {
     const { rows } = await pool.query(
       `UPDATE property
     SET owner=1, status=$2, price=$3, state=$4, city=$5, address=$6, type=$7, image_url=$8 
-    WHERE id=$1 RETURNING *`, [id, status, price, state, city, address, type, image_url]
-);
+    WHERE id=$1 RETURNING *`, [id, status, price, state, city, address, type, image_url],
+    );
     return rows[0];
   }
 

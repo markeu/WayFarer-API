@@ -36,4 +36,35 @@ export default class TripsController {
       });
     }
   }
+
+  /**
+   * @description Get all properties
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {function} next
+   * @returns {object} propertiesDetails
+   * @memberof PropertyController
+   */
+  static async getAllTrips(req, res, next) {
+    try {
+      const allProperties = await getTripQuery();
+      if (allProperties.length > 0) {
+        return res.status(201).json({
+          status: 'success',
+          data: newTrip,
+        });
+      }
+      return res.status(400).json({
+        status: 'error',
+        error: 'There are no properties in this database',
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 'error',
+        error: 'Internal server error',
+      });
+    }
+  }
 }

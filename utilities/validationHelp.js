@@ -1,6 +1,6 @@
 export default {
   checkForEmptyFields: (field, value) => {
-    if (!value) return [`${field} is required`];
+    if (!value || !value.trim()) return [`${field} is required`];
     return [];
   },
 
