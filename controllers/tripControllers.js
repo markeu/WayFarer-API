@@ -1,7 +1,7 @@
 
 import tripsModel from '../models/tripModel';
 
-const { create } = tripsModel;
+const { create, getAllTrips } = tripsModel;
 
 
 /**
@@ -38,27 +38,27 @@ export default class TripsController {
   }
 
   /**
-   * @description Get all properties
+   * @description Get all trips
    *
    * @static
    * @param {object} req
    * @param {object} res
    * @param {function} next
-   * @returns {object} propertiesDetails
-   * @memberof PropertyController
+   * @returns {object} allTrips
+   * @memberof TripController
    */
   static async getAllTrips(req, res, next) {
     try {
-      const allProperties = await getTripQuery();
-      if (allProperties.length > 0) {
+      const allTrips = await getAllTrips();
+      if (allTrips.length > 0) {
         return res.status(201).json({
           status: 'success',
-          data: newTrip,
+          data: allTrips,
         });
       }
       return res.status(400).json({
         status: 'error',
-        error: 'There are no properties in this database',
+        error: 'There are no trips in this database',
       });
     } catch (err) {
       return res.status(500).json({
