@@ -1,6 +1,6 @@
 import busModel from '../models/busModel';
 
-const { create, getAllBuses } = busModel;
+const { create, getAllBuses, selectBus } = busModel;
 
 
 /**
@@ -58,6 +58,38 @@ export default class busesController {
       return res.status(400).json({
         status: 'error',
         error: 'There are no bus in this database',
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 'error',
+        error: 'Internal server error',
+      });
+    }
+  }
+
+  /**
+   * @description Get specific bus
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {function} next
+   * @returns {object} busDetails
+   * @memberof BusesController
+   */
+  static async getSpecificBus(req, res) {
+    try {
+      const { id } = req.params;
+      const busDetails = await selectBus(parseInt(id, 10));
+      if (busDetails) {
+        return res.status(200).json({
+          status: 'success',
+          data: busDetails,
+        });
+      }
+      return res.status(404).json({
+        status: 'error',
+        error: 'Bus not found',
       });
     } catch (err) {
       return res.status(500).json({

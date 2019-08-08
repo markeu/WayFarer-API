@@ -9,7 +9,7 @@ const router = express.Router();
 
 const { signUp, login } = UsersController;
 const { createTrip, getAllTrips, updateTripStatus } = TripsController;
-const { createBus, getAll } = BusesController;
+const { createBus, getAll, getSpecificBus } = BusesController;
 
 router.post('/auth/signup', validation.auth, signUp);
 router.post('/auth/login', validation.auth, login);
@@ -18,6 +18,7 @@ router.get('/trip', verifyToken, getAllTrips);
 router.patch('/:id/trip', verifyToken, isAdmin, updateTripStatus);
 router.post('/bus', verifyToken, isAdmin, validation.busValidator, createBus);
 router.get('/bus', verifyToken, isAdmin, getAll);
+router.get('/:id/bus', verifyToken, isAdmin, getSpecificBus);
 
 
 export default router;

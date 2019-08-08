@@ -44,4 +44,16 @@ export default class Buses {
     );
     return data.rows;
   }
+
+  /**
+   * @static
+   * @description Method to select a specific bus
+   * @param {number} id Id of the busto be returned
+   * @returns {object} bus details
+   * @memberof Buses
+   */
+  static async selectBus(id) {
+    const data = await pool.query('SELECT * FROM buses WHERE id= $1;', [id]);
+    return data.rows[0];
+  }
 }
