@@ -31,4 +31,17 @@ export default class Buses {
       RETURNING *`, [number_plate, model, year, manufacturer, capacity, date]);
     return rows[0];
   }
+
+  /**
+   * @static
+   * @description Method to get all buses
+   * @returns {array} All buses in the DB
+   * @memberof Buses
+   */
+  static async getAllBuses() {
+    const data = await pool.query(
+      'SELECT * FROM buses',
+    );
+    return data.rows;
+  }
 }
