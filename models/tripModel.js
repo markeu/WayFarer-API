@@ -21,25 +21,25 @@ export default class Trips {
       bus_id,
       origin,
       destination,
-      trip_date,
       fare,
     } = trip;
+    const date = Date();
     const { rows } = await pool.query(`INSERT INTO trips
       (bus_id, origin, destination, trip_date, fare) 
       VALUES ($1, $2, $3, $4, $5)
-      RETURNING *`, [bus_id, origin, destination, trip_date, fare]);
+      RETURNING *`, [bus_id, origin, destination, date, fare]);
     return rows[0];
   }
 
   /**
    * @static
-   * @description Method to select one specific property advert
-   * @param {number} id Id of the property to be returned
-   * @returns {object} Single property advert details
+   * @description Method to select one specific trip advert
+   * @param {number} id Id of the trip to be returned
+   * @returns {object} Single trip details
    * @memberof Properties
    */
-  static async selectOneProperty(id) {
-    const data = await pool.query('SELECT * FROM property WHERE id= $1;', [id]);
+  static async selectTrip(id) {
+    const data = await pool.query('SELECT * FROM trips WHERE id= $1;', [id]);
     return data.rows[0];
   }
 
@@ -77,9 +77,9 @@ export default class Trips {
    * @returns {object} Details of the newly updated property
    * @memberof Properties
    */
-  static async updateAdStatus({ status, id }) {
+  static async updateStatus({ status, id }) {
     const data = await pool.query(
-      `UPDATE property SET status= $1 
+      `UPDATE trips SET status= $1 
       WHERE id= $2 RETURNING *`, [status, id],
     );
     return data.rows[0];

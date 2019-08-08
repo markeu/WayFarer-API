@@ -1,6 +1,6 @@
 export default {
   checkForEmptyFields: (field, value) => {
-    if (!value || !value.trim()) return [`${field} is required`];
+    if (!value ) return [`${field} is required`];
     return [];
   },
 
@@ -17,6 +17,12 @@ export default {
 
   checkStringFields: (field, value) => {
     if (/\d/.test(value)) return [`${field} must not contain numbers.`];
+    return [];
+  },
+
+  checkStatus: (field, value) => {
+    const final = value.includes('Active' || 'Cancelled');
+    if (!final) return [`${field} must be limited to ACTIVE or CANCELLED.`];
     return [];
   },
 };

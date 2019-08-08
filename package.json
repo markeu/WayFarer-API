@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec babel-node app.js",
+    "seed": "babel-node db/userSeed.js",
     "create-table": " babel-node db/createTable.js",
     "drop-table": " babel-node db/dropTable.js"
   },

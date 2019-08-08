@@ -41,7 +41,7 @@ export const decryptPassword = (inputPassword, encryptedPassword) => bycrpt.comp
    * @memberof encrypt
    */
 export const generateToken = (user) => {
-  const payload = { id: user.id, email: user.email };
+  const payload = { id: user.id, email: user.email, is_admin: user.is_admin };
   const token = jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: '24h',
   });

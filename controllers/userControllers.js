@@ -84,7 +84,7 @@ export class UsersController {
           error: 'The credentials you provided is incorrect',
         });
       }
-      const userData = { id: rows[0].id, email: rows[0].email };
+      const userData = { id: rows[0].id, email: rows[0].email, is_admin: rows[0].is_admin };
       const token = await generateToken(userData);
       return res.status(201).json({
         status: 'success',

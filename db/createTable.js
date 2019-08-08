@@ -33,17 +33,19 @@ const tablesQuerry = `
         destination TEXT NOT NULL,
         trip_date TEXT NOT NULL,
         fare FLOAT(2) NOT NULL,
-        status VARCHAR(10) DEFAULT 'active'
+        status VARCHAR(10) DEFAULT 'active',
+        FOREIGN KEY (bus_id) REFERENCES buses(id)
     );
 
     CREATE TABLE IF NOT EXISTS bookings(
-        id SERIAL,
-        trip_id INT REFERENCES trips(id) ON DELETE CASCADE,
-        user_id INT REFERENCES users(id) ON DELETE CASCADE,
+        id SERIAL PRIMARY KEY,
+        trip_id INT NOT NULL,
+        user_id INT NOT NULL,
         seat_number SERIAL,
         created_on TIMESTAMP WITHOUT TIME ZONE DEFAULT (now() AT TIME ZONE 'WAT'),
         modified_on TIMESTAMP WITHOUT TIME ZONE,
-        PRIMARY KEY(trip_id, user_id)
+        FOREIGN KEY (trip_id) REFERENCES trips(id),
+        FOREIGN KEY (user_id) REFERENCES users(id)
       );
 `;
 

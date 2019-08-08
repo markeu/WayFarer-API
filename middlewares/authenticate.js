@@ -48,9 +48,8 @@ export const verifyToken = (req, res, next) => {
    * @memberof encrypt
    */
 export const isAdmin = (req, res, next) => {
-  const { is_admin } = req.body;
-
-  if (is_admin !== true) {
+  const { is_admin } = req.user;
+  if (!is_admin) {
     return res.status(401).json({
       status: 'error',
       error: 'Only Admins can perform this operation',

@@ -37,14 +37,12 @@ export default {
       bus_id,
       origin,
       destination,
-      trip_date,
       fare,
     } = req.body;
 
     errors.push(...checkForEmptyFields('bus_id', bus_id));
     errors.push(...checkForEmptyFields('origin', origin));
     errors.push(...checkForEmptyFields('destination', destination));
-    errors.push(...checkForEmptyFields('trip_date', trip_date));
     errors.push(...checkForEmptyFields('fare', fare));
     errors.push(...checkIntergerFields('fare', fare));
     if (errors.length) {
@@ -61,10 +59,10 @@ export default {
     const { status } = req.body;
     errors.push(...checkForEmptyFields('status', status));
 
-    if (!errors.length) {
+    if (errors.length) {
       return res.status(400).json({
         Status: 'error',
-        error: 'Status Value must be a string value of "Sold" or "Available"',
+        error: 'Status Value must be a string value of "Active" or "Cancelled"',
       });
     }
     return next();
