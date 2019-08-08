@@ -1,6 +1,8 @@
 import busModel from '../models/busModel';
 
-const { create, getAllBuses, selectBus, updateBus } = busModel;
+const {
+  create, getAllBuses, selectBus, updateBus, deleteBus,
+} = busModel;
 
 
 /**
@@ -132,5 +134,37 @@ export default class busesController {
         error: 'Internal server error',
       });
     }
+  }
+
+  /**
+   * @description Delete bus
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {function} next
+   * @returns {string} delete status
+   * @memberof BusesController
+   */
+  static async deleteABus(req, res) {
+    const { id } = req.params;
+    const busId = await selectBus(id);
+    if (!busId) {
+      return res.status(400).json({
+        status: 'error',
+        error: 'Bus does not exist',
+      });
+    }
+    const deletedBus = await deleteBus(id);
+    if (deletedBus) {
+      return res.status(200).json({
+        status: 'success',
+        data: { message: 'Bus succesfully deleted' },
+      });
+    }
+    return res.status(500).json({
+      status: 'error',
+      error: 'Internal server error',
+    });
   }
 }

@@ -82,4 +82,16 @@ export default class Buses {
     );
     return rows[0];
   }
+
+  /**
+   * @static
+   * @description Method to delete bus
+   * @param {number} id Id of the bus to be deleted
+   * @memberof Buses
+   */
+  static async deleteBus(id) {
+    const data = await pool.query('DELETE FROM buses WHERE id= $1', [id]);
+    if (data.rowCount === 1) return true;
+    return false;
+  }
 }

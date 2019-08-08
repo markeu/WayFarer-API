@@ -9,7 +9,9 @@ const router = express.Router();
 
 const { signUp, login } = UsersController;
 const { createTrip, getAllTrips, updateTripStatus } = TripsController;
-const { createBus, getAll, getSpecificBus, updateBusData } = BusesController;
+const {
+  createBus, getAll, getSpecificBus, updateBusData, deleteABus,
+} = BusesController;
 
 router.post('/auth/signup', validation.auth, signUp);
 router.post('/auth/login', validation.auth, login);
@@ -20,6 +22,7 @@ router.post('/bus', verifyToken, isAdmin, validation.busValidator, createBus);
 router.get('/bus', verifyToken, isAdmin, getAll);
 router.get('/:id/bus', verifyToken, isAdmin, getSpecificBus);
 router.patch('/:id/bus', verifyToken, isAdmin, updateBusData);
+router.delete('/:id/bus', verifyToken, isAdmin, deleteABus);
 
 
 export default router;
