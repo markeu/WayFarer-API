@@ -68,21 +68,26 @@ export default {
     return next();
   },
 
-  flagValidator: (req, res, next) => {
+  busValidator: (req, res, next) => {
     const errors = [];
     const {
-      reason, description,
+      number_plate,
+      model,
+      year,
+      manufacturer,
+      capacity,
     } = req.body;
 
-    errors.push(...checkForEmptyFields('status', reason));
-    errors.push(...checkForEmptyFields('city', description));
-    errors.push(...checkStringFields('status', reason));
-    errors.push(...checkStringFields('city', description, descriptionRegex));
-
+    errors.push(...checkForEmptyFields('number_plate', number_plate));
+    errors.push(...checkForEmptyFields('model', model));
+    errors.push(...checkIntergerFields('year', year));
+    errors.push(...checkForEmptyFields('manufacturer', manufacturer));
+    errors.push(...checkStringFields('manufacturer', manufacturer));
+    errors.push(...checkIntergerFields('capacity', capacity));
     if (errors.length) {
       return res.status(400).json({
-        message: 'Error',
-        data: errors,
+        Status: 'error',
+        error: errors,
       });
     }
     return next();
