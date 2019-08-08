@@ -56,4 +56,30 @@ export default class Buses {
     const data = await pool.query('SELECT * FROM buses WHERE id= $1;', [id]);
     return data.rows[0];
   }
+
+  /**
+   * @static
+   * @description Method to update bus
+   * @param {number} id Id of the bus to be updated
+   * @param {string} name new detail of the bus
+   * @returns {object} Details of the newly updated bus
+   * @memberof Buses
+   */
+
+  static async updateBus(bus, id) {
+    const {
+      number_plate,
+      model,
+      year,
+      manufacturer,
+      capacity,
+    } = bus;
+    const date = new Date();
+    const { rows } = await pool.query(
+      `UPDATE buses
+    SET number_plate= $2, model= $3, year= $4, manufacturer= $5, capacity= $6, modified_on= $7
+    WHERE id= $1 RETURNING *`, [id, number_plate, model, year, manufacturer, capacity, date],
+    );
+    return rows[0];
+  }
 }
