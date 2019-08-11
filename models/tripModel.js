@@ -55,4 +55,16 @@ export default class Trips {
     );
     return data.rows;
   }
+
+  /**
+   * @static
+   * @description Method to delete trip
+   * @param {number} id Id of the trip to be deleted
+   * @memberof Trips
+   */
+  static async deleteTrip(id) {
+    const data = await pool.query('DELETE FROM trips WHERE id= $1', [id]);
+    if (data.rowCount === 1) return true;
+    return false;
+  }
 }

@@ -2,7 +2,7 @@
 import tripsModel from '../models/tripModel';
 
 const {
-  create, getAllTrips, selectTrip, updateStatus,
+  create, getAllTrips, selectTrip, updateStatus, deleteTrip,
 } = tripsModel;
 
 
@@ -150,5 +150,37 @@ export default class TripsController {
         error: 'Internal server error',
       });
     }
+  }
+
+  /**
+   * @description Delete trip
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {function} next
+   * @returns {string} delete status
+   * @memberof TripController
+   */
+  static async deleteATrip(req, res) {
+    const { id } = req.params;
+    const tripId = await selectTrip(id);
+    if (!tripId) {
+      return res.status(400).json({
+        status: 'error',
+        error: 'Trip does not exist',
+      });
+    }
+    const deletedBus = await deleteTrip(id);
+    if (deletedBus) {
+      return res.status(200).json({
+        status: 'success',
+        data: { message: 'Trip succesfully deleted' },
+      });
+    }
+    return res.status(500).json({
+      status: 'error',
+      error: 'Internal server error',
+    });
   }
 }
