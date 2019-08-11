@@ -40,6 +40,38 @@ export default class TripsController {
   }
 
   /**
+   * @description Get specific trip
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {function} next
+   * @returns {object} trip details
+   * @memberof TripsController
+   */
+  static async getSpecificTrip(req, res) {
+    try {
+      const { id } = req.params;
+      const tripDetails = await selectTrip(parseInt(id, 10));
+      if (tripDetails) {
+        return res.status(200).json({
+          status: 'success',
+          data: tripDetails,
+        });
+      }
+      return res.status(404).json({
+        status: 'error',
+        error: 'Trip not found',
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 'error',
+        error: 'Internal server error',
+      });
+    }
+  }
+
+  /**
    * @description Get all trips
    *
    * @static

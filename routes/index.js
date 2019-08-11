@@ -8,7 +8,11 @@ import { verifyToken, isAdmin } from '../middlewares/authenticate';
 const router = express.Router();
 
 const { signUp, login } = UsersController;
-const { createTrip, getAllTrips, updateTripStatus } = TripsController;
+
+const {
+  createTrip, getAllTrips, getSpecificTrip, updateTripStatus,
+} = TripsController;
+
 const {
   createBus, getAll, getSpecificBus, updateBusData, deleteABus,
 } = BusesController;
@@ -17,6 +21,7 @@ router.post('/auth/signup', validation.auth, signUp);
 router.post('/auth/login', validation.auth, login);
 router.post('/trip', verifyToken, isAdmin, validation.tripValidator, createTrip);
 router.get('/trip', verifyToken, getAllTrips);
+router.get('/:id/trip', verifyToken, getSpecificTrip);
 router.patch('/:id/trip', verifyToken, isAdmin, updateTripStatus);
 router.post('/bus', verifyToken, isAdmin, validation.busValidator, createBus);
 router.get('/bus', verifyToken, isAdmin, getAll);
