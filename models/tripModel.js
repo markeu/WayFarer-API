@@ -58,6 +58,32 @@ export default class Trips {
 
   /**
    * @static
+   * @description Method to update trip
+   * @param {number} id Id of the trip to be updated
+   * @param {string} name new detail of the trip
+   * @returns {object} Details of the newly updated trip
+   * @memberof Trips
+   */
+
+  static async updateTrip(trip, id) {
+    const {
+      bus_id,
+      origin,
+      destination,
+      fare,
+      status,
+    } = trip;
+    const date = new Date();
+    const { rows } = await pool.query(
+      `UPDATE trips
+    SET bus_id= $2, origin= $3, destination= $4, trip_date= $5, fare= $6, status= $7
+    WHERE id= $1 RETURNING *`, [id, bus_id, origin, destination, date, fare, status],
+    );
+    return rows[0];
+  }
+
+  /**
+   * @static
    * @description Method to delete trip
    * @param {number} id Id of the trip to be deleted
    * @memberof Trips

@@ -10,7 +10,7 @@ const router = express.Router();
 const { signUp, login } = UsersController;
 
 const {
-  createTrip, getAllTrips, getSpecificTrip, updateTripStatus, deleteATrip,
+  createTrip, getAllTrips, getSpecificTrip, updateTripStatus, deleteATrip, updateTripData,
 } = TripsController;
 
 const {
@@ -22,7 +22,8 @@ router.post('/auth/login', validation.auth, login);
 router.post('/trip', verifyToken, isAdmin, validation.tripValidator, createTrip);
 router.get('/trip', verifyToken, getAllTrips);
 router.get('/:id/trip', verifyToken, getSpecificTrip);
-router.patch('/:id/trip', verifyToken, isAdmin, updateTripStatus);
+router.patch('/:id/trip/status', verifyToken, isAdmin, updateTripStatus);
+router.patch('/:id/trip', verifyToken, isAdmin, updateTripData);
 router.delete('/:id/trip', verifyToken, isAdmin, deleteATrip);
 router.post('/bus', verifyToken, isAdmin, validation.busValidator, createBus);
 router.get('/bus', verifyToken, isAdmin, getAll);

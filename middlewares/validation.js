@@ -93,13 +93,5 @@ export default {
     return next();
   },
 
-  checkPropertyParams: (req, res, next) => {
-    const { params: { id } } = req;
-    const parsedNumber = parseInt(id, 10);
-    const isInter = Number.isInteger(parsedNumber);
-    const isGreaterThanZero = parsedNumber > 0;
-
-    if (isInter && isGreaterThanZero) return next();
-    return res.jsend.error('Property ID must be an integer greater than zero');
-  },
+  
 };

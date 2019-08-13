@@ -2,7 +2,7 @@
 import tripsModel from '../models/tripModel';
 
 const {
-  create, getAllTrips, selectTrip, updateStatus, deleteTrip,
+  create, getAllTrips, selectTrip, updateStatus, deleteTrip, updateTrip,
 } = tripsModel;
 
 
@@ -143,6 +143,41 @@ export default class TripsController {
         data: {
           message: 'Trip cancelled successfully',
         },
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 'error',
+        error: 'Internal server error',
+      });
+    }
+  }
+
+  /**
+   * @description update specific trip
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {function} next
+   * @returns {object} trip details
+   * @memberof TripsController
+   */
+  static async updateTripData(req, res) {
+    try {
+      const { id } = req.params;
+      const dataFetch = { ...req.body };
+      const tripToBeUpdated = await selectTrip(parseInt(id, 10));
+      if (!tripToBeUpdated) {
+        return res.status(400).json({
+          status: 'error',
+          error: 'Trip does not exist',
+        });
+      }
+      const newData = Object.assign(tripToBeUpdated, dataFetch);
+      const updatedTripDetail = await updateTrip(newData, id);
+      return res.status(201).json({
+        status: 'success',
+        data: updatedTripDetail,
       });
     } catch (err) {
       return res.status(500).json({
