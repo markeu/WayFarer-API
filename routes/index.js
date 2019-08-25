@@ -2,6 +2,7 @@ import express from 'express';
 import { UsersController } from '../controllers/userControllers';
 import TripsController from '../controllers/tripControllers';
 import BusesController from '../controllers/busController';
+import BookingController from '../controllers/bookingController';
 import validation from '../middlewares/validation';
 import { verifyToken, isAdmin } from '../middlewares/authenticate';
 
@@ -17,6 +18,10 @@ const {
   createBus, getAll, getSpecificBus, updateBusData, deleteABus,
 } = BusesController;
 
+const {
+  createBooking,
+} = BookingController;
+
 router.post('/auth/signup', validation.auth, signUp);
 router.post('/auth/login', validation.auth, login);
 router.post('/trip', verifyToken, isAdmin, validation.tripValidator, createTrip);
@@ -30,6 +35,7 @@ router.get('/bus', verifyToken, isAdmin, getAll);
 router.get('/:id/bus', verifyToken, isAdmin, getSpecificBus);
 router.patch('/:id/bus', verifyToken, isAdmin, updateBusData);
 router.delete('/:id/bus', verifyToken, isAdmin, deleteABus);
+router.post('/booking', verifyToken, isAdmin, createBooking);
 
 
 export default router;

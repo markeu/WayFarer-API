@@ -36,10 +36,10 @@ export default class UserModel {
      * @memberof Users
      */
   static async findUserInput(user) {
-    const { email } = user;
+    const { id } = user;
     const { rows } = await pool.query(`SELECT * FROM users
-        (email) VALUES ($1)
-        RETURNING *`, [email]);
+        (id) VALUES ($1)
+        RETURNING *`, [id]);
     if (rows[0].rowCount < 1) {
       return false;
     }

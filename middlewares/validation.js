@@ -93,5 +93,29 @@ export default {
     return next();
   },
 
-  
+  bookingValidator: (req, res, next) => {
+    const errors = [];
+    const {
+      seat_number,
+      trip_id,
+      bus_id,
+      first_name,
+      last_name,
+    } = req.body;
+
+    errors.push(...checkForEmptyFields('first_name', first_name));
+    errors.push(...checkForEmptyFields('last_name', last_name));
+    errors.push(...checkIntergerFields('seat_number', seat_number));
+    errors.push(...checkIntergerFields('trip_id', trip_id));
+    errors.push(...checkIntergerFields('bus_id', bus_id));
+    if (errors.length) {
+      return res.status(400).json({
+        Status: 'error',
+        error: errors,
+      });
+    }
+    return next();
+  },
+
+
 };

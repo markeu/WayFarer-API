@@ -38,14 +38,18 @@ const tablesQuerry = `
     );
 
     CREATE TABLE IF NOT EXISTS bookings(
-        id SERIAL PRIMARY KEY,
+        booking_id SERIAL PRIMARY KEY,
         trip_id INT NOT NULL,
         user_id INT NOT NULL,
-        seat_number SERIAL,
-        created_on TIMESTAMP WITHOUT TIME ZONE DEFAULT (now() AT TIME ZONE 'WAT'),
-        modified_on TIMESTAMP WITHOUT TIME ZONE,
+        bus_id INT NOT NULL,
+        email TEXT NOT NULL,
+        seat_number INT UNIQUE NOT NULL,
+        trip_date DATE NOT NULL,
+        first_name TEXT NOT NULL,
+        last_name TEXT NOT NULL,
         FOREIGN KEY (trip_id) REFERENCES trips(id),
-        FOREIGN KEY (user_id) REFERENCES users(id)
+        FOREIGN KEY (user_id) REFERENCES users(id),
+        FOREIGN KEY (bus_id) REFERENCES buses(id)
       );
 `;
 
@@ -54,7 +58,12 @@ const createTable = () => {
   console.log('called');
   pool.query(`${tablesQuerry}`).then(() => {
     console.log('Tables created successfully');
-  });
+    pool.end();
+  })
+    .catch((err) => {
+      console.log(err);
+      pool.end();
+    });
 };
 
 
