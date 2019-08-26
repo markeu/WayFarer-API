@@ -33,4 +33,17 @@ export default class Buses {
     RETURNING *`, [user_id, trip_id, bus_id, date, first_name, last_name, email, seat_number]);
     return rows[0];
   }
+
+  /**
+   * @static
+   * @description Method to get all buses
+   * @returns {array} All buses in the DB
+   * @memberof Buses
+   */
+  static async getAllBookings() {
+    const data = await pool.query(
+      'SELECT * FROM bookings',
+    );
+    return data.rows;
+  }
 }

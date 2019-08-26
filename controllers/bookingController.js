@@ -2,7 +2,7 @@
 import bookingModel from '../models/bookingModel';
 
 const {
-  create,
+  create, getAllBookings,
 } = bookingModel;
 
 
@@ -30,6 +30,37 @@ export default class BookingController {
       return res.status(201).json({
         status: 'success',
         data: newBooking,
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 'error',
+        error: 'Internal server error',
+      });
+    }
+  }
+
+  /**
+   * @description Get all buses
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {function} next
+   * @returns {object} allBuses
+   * @memberof BusesController
+   */
+  static async allBookings(req, res) {
+    try {
+      const bookings = await getAllBookings();
+      if (bookings.length > 0) {
+        return res.status(200).json({
+          status: 'success',
+          data: bookings,
+        });
+      }
+      return res.status(400).json({
+        status: 'error',
+        error: 'There are no bookings',
       });
     } catch (err) {
       return res.status(500).json({
