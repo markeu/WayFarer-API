@@ -7,14 +7,14 @@ import pool from '../db/db';
  * @export
  * @class Trips
  */
-export default class Buses {
+export default class Bookings {
   /**
      *
-     * Buses model to create new buses
+     * Booking model to create bookings
      * @static
      * @param {object} Buses
-     * @returns {object} bus data
-     * @memberof Buses
+     * @returns {object} booking data
+     * @memberof Booking
      */
   static async create(bookings) {
     const {
@@ -36,9 +36,9 @@ export default class Buses {
 
   /**
    * @static
-   * @description Method to get all buses
-   * @returns {array} All buses in the DB
-   * @memberof Buses
+   * @description Method to get all bookings
+   * @returns {array} All bookings
+   * @memberof Bookings
    */
   static async getAllBookings() {
     const data = await pool.query(
@@ -49,10 +49,10 @@ export default class Buses {
 
   /**
    * @static
-   * @description Method to select a specific bus
-   * @param {number} id Id of the busto be returned
-   * @returns {object} bus details
-   * @memberof Buses
+   * @description Method to select a specific booking
+   * @param {number} id Id of the booking to be returned
+   * @returns {object} booking details
+   * @memberof Bookings
    */
   static async selectBooking(id) {
     const data = await pool.query('SELECT * FROM bookings WHERE booking_id= $1;', [id]);
@@ -61,9 +61,9 @@ export default class Buses {
 
   /**
    * @static
-   * @description Method to delete bus
-   * @param {number} id Id of the bus to be deleted
-   * @memberof Buses
+   * @description Method to delete booking
+   * @param {number} id Id of the booking to be deleted
+   * @memberof Bookings
    */
   static async deleteBooking(id) {
     const data = await pool.query('DELETE FROM bookings WHERE booking_id= $1', [id]);
