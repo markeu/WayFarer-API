@@ -19,7 +19,7 @@ const {
 } = BusesController;
 
 const {
-  createBooking, allBookings,
+  createBooking, allBookings, deleteBookings,
 } = BookingController;
 
 router.post('/auth/signup', validation.auth, signUp);
@@ -37,6 +37,7 @@ router.patch('/:id/bus', verifyToken, isAdmin, updateBusData);
 router.delete('/:id/bus', verifyToken, isAdmin, deleteABus);
 router.post('/bookings', verifyToken, isAdmin, createBooking);
 router.get('/bookings', verifyToken, isAdmin, allBookings);
+router.delete('/:id/bookings', verifyToken, isAdmin, deleteBookings);
 
 
 export default router;
