@@ -4,11 +4,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 const pool = new Pool({
-  user: 'uche',
-  host: 'localhost',
-  database: 'wayfarer',
-  password: '',
-  port: 5432,
+  connectionString: process.env.DATABASE_URL
 });
 
 pool.on('connect', () => {

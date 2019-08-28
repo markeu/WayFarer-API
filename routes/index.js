@@ -35,7 +35,7 @@ router.get('/bus', verifyToken, isAdmin, getAll);
 router.get('/:id/bus', verifyToken, isAdmin, getSpecificBus);
 router.patch('/:id/bus', verifyToken, isAdmin, updateBusData);
 router.delete('/:id/bus', verifyToken, isAdmin, deleteABus);
-router.post('/bookings', verifyToken, isAdmin, createBooking);
+router.post('/bookings', verifyToken, isAdmin, validation.bookingValidator, createBooking);
 router.get('/bookings', verifyToken, isAdmin, allBookings);
 router.delete('/:id/bookings', verifyToken, isAdmin, deleteBookings);
 

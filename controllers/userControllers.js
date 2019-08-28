@@ -30,6 +30,7 @@ export class UsersController {
       last_name: data.last_name,
       password: data.password,
       email: data.email,
+      is_admin: data.is_admin,
     };
     try {
       const user = await createUser(value);

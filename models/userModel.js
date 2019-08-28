@@ -17,12 +17,12 @@ export default class UserModel {
    */
   static async createUser(user) {
     const {
-      first_name, last_name, password, email,
+      first_name, last_name, password, email, is_admin,
     } = user;
     const { rows } = await pool.query(`INSERT INTO users
         (first_name, last_name, password, email, is_admin)
         VALUES ($1, $2, $3, $4, $5)
-        RETURNING *`, [first_name, last_name, password, email, false]);
+        RETURNING *`, [first_name, last_name, password, email, is_admin]);
     return rows[0];
   }
 
