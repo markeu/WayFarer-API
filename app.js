@@ -10,7 +10,7 @@ app.use('/api/v1/', Routes);
 
 app.get('/', (req, res) => {
   res.status(200).send({
-    message: 'Welcome to WayFarer API',
+    message: 'Welcome to WayFarer-API',
   });
 });
 
